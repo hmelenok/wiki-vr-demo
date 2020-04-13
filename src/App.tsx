@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import AframeDemo from "./components/AframeDemo";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 function App() {
   return (

@@ -1,6 +1,6 @@
 import { WikiError, WikiParseResponse } from "./types";
 
-const WIKI_API_URL = "https://en.wikipedia.org/w/api.php";
+export const WIKI_API_URL = "https://en.wikipedia.org/w/api.php";
 
 export function searchByText(
   searchTerm: string
