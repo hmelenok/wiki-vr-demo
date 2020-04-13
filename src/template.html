@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+    <script type="text/javascript">
+      AFRAME.ASSETS_PATH = "assets";
+    </script>
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <a-scene>
+
+
+
+      <a-plane
+        color="#adadad"
+        height="3.75"
+        width="10"
+        position="0 1.5 -5"
+      ></a-plane>
+      <a-plane
+        color="#adadad"
+        height="3.75"
+        width="10"
+        position="-5 0 0"
+        rotation="0 90 0"
+      ></a-plane>
+      <a-plane
+        color="#adadad"
+        height="3.75"
+        width="10"
+        position="5, 0, 0"
+        rotation="0 -90 0"
+      ></a-plane>
+
+      <a-plane
+        src="assets/plane/red-pavement.jpg"
+        position="0 0 0"
+        rotation="-90 0 0"
+        height="100"
+        repeat="100 100"
+        width="100"
+        normal-map="assets/plane/red-pavement-map.jpg"
+        ,
+      ></a-plane>
+      <a-sky src="assets/sky/sky-simple.png"></a-sky>
+    </a-scene>
+  </body>
+</html>
