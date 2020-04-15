@@ -24,6 +24,7 @@ module.exports = merge(common, {
    * Spin up a server for quick development.
    */
   devServer: {
+    disableHostCheck: true,
     historyApiFallback: true,
     contentBase: paths.build,
     open: true,

@@ -8,6 +8,16 @@ export function searchByText(
   return fetch(
     `${WIKI_API_URL}?action=parse&page=${encodeURIComponent(
       searchTerm
-    )}&format=json`
+    )}&format=json&origin=*`,
+    {}
   ).then((r) => r.json());
+}
+
+export function getRandomPage() {
+  return fetch(`${WIKI_API_URL}?action=query&list=random&format=json&origin=*`, {
+    headers: {
+      Origin: window.location.origin,
+      "Content-Type": "application/json; charset=UTF-8",
+    },
+  });
 }
