@@ -2,6 +2,7 @@ import { getRandomPage } from "../api/wiki";
 import { createWalls } from "../walls";
 import { moveToSecondRoom } from "../waypoints";
 import { createResultRoom } from "./result-room";
+import { Store } from "redux";
 export const createSky = (sceneEl: Element) => {
   if (!sceneEl) {
     return;
@@ -29,18 +30,31 @@ export const createPavement = (sceneEl: Element) => {
   sceneEl.appendChild(entityEl);
 };
 
-export const createRandomDoor = (sceneEl: Element) => {
+export const createRandomDoor = (sceneEl: Element, store: Store) => {
   AFRAME.registerComponent("get-random-page", {
     init: async function () {
-      const [randomTitle] = await getRandomPage();
-      this.el.setAttribute("text", { value: randomTitle });
+      store.subscribe(() => {
+        const { randomWikiTitle } = store.getState();
+        this.el.setAttribute("text", { value: randomWikiTitle });
+      });
+      const getRandomTitle = async () => {
+        const [randomTitle] = await getRandomPage();
+        store.dispatch({
+          type: "SET_RANDOM_WIKI_TITLE",
+          randomWikiTitle: randomTitle,
+        });
+      };
+
+      await getRandomTitle();
+
+      this.el.addEventListener("click", () => getRandomTitle());
     },
+    update: async function () {},
   });
 
   AFRAME.registerComponent("door-action", {
     init: async function () {
       this.el.addEventListener("click", () => {
-        console.warn("click");
         moveToSecondRoom();
         createResultRoom(sceneEl);
       });
@@ -112,7 +126,7 @@ export const createWikiSign = (sceneEl: Element) => {
   });
 };
 
-export const composeRoom = (sceneEl: Element | null) => {
+export const composeRoom = (sceneEl: Element | null, store: Store) => {
   if (!sceneEl) {
     return;
   }
@@ -120,5 +134,5 @@ export const composeRoom = (sceneEl: Element | null) => {
   createPavement(sceneEl);
   createWalls(sceneEl, { wallLength: 10, idPrefix: "first" });
   createWikiSign(sceneEl);
-  createRandomDoor(sceneEl);
+  createRandomDoor(sceneEl, store);
 };
