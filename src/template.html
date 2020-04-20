@@ -4,74 +4,26 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
 
   <body>
+    <a-scene cursor="rayOrigin: mouse" compose-first-room>
+      <a-camera id="mainCamera">
+        <!--        <a-cursor></a-cursor>-->
+      </a-camera>
 
-
-
-
-
-    <a-scene>
+      <a-entity
+        laser-controls="hand: right"
+        line="color: red; opacity: 0.75"
+      ></a-entity>
       <a-assets>
-        <a-asset-item id="door" src="assets/models/door/scene.gltf"></a-asset-item>
+        <a-asset-item
+          id="door"
+          src="assets/models/door/scene.gltf"
+        ></a-asset-item>
       </a-assets>
-      <a-entity gltf-model="#door" position="-5 0 -4.5" scale="0.01 0.01 0.01"></a-entity>
-
-
-
-      <a-entity
-        geometry="primitive: plane; width: auto; height: auto"
-        text="value: Wikipedia;color: #000;width: 11;align: center;"
-        material="visible: false"
-        position="0 2.75 -5"
-      ></a-entity>
-      <a-entity
-              geometry="primitive: plane; width: auto; height: auto"
-              text="value: (vr demo);color: #000;width: 5;align: center;"
-              material="visible: false"
-              position="0 2.3 -5"
-      ></a-entity>
-
-
-      <a-plane
-        id="backWall"
-        color="#adadad"
-        height="3.75"
-        width="10"
-        position="0 1.5 -5"
-      ></a-plane>
-      <a-plane
-        id="leftWall"
-        color="#adadad"
-        height="3.75"
-        width="10"
-        position="-5 0 0"
-        rotation="0 90 0"
-      ></a-plane>
-      <a-plane
-        id="rightWall"
-        color="#adadad"
-        height="3.75"
-        width="10"
-        position="5, 0, 0"
-        rotation="0 -90 0"
-      ></a-plane>
-
-      <a-plane
-        id="floorPavement"
-        src="assets/plane/red-pavement.jpg"
-        position="0 0 0"
-        rotation="-90 0 0"
-        height="100"
-        repeat="100 100"
-        width="100"
-        normal-map="assets/plane/red-pavement-map.jpg"
-        ,
-      ></a-plane>
-      <a-sky src="assets/sky/sky-simple.png"></a-sky>
     </a-scene>
   </body>
 </html>

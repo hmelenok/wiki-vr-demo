@@ -1,20 +1,12 @@
 import "./styles/index.scss";
-import { getRandomPage } from "./js/api/wiki";
+import { composeRoom } from "./js/rooms/first-room";
+import { createWalls } from "./js/walls";
 
-getRandomPage().then(console.warn);
-
-AFRAME.registerComponent("modify-materials", {
+AFRAME.registerComponent("compose-first-room", {
   init: function () {
-    // Wait for model to load.
-    this.el.addEventListener("model-loaded", () => {
-      // Grab the mesh / scene.
-      const obj = this.el.getObject3D("mesh");
-      // Go over the submeshes and modify materials we want.
-      obj.traverse((node) => {
-        if (node.name.indexOf("ship") !== -1) {
-          node.material.color.set("red");
-        }
-      });
-    });
+    const sceneEl = this.el;
+
+    // This will be called after the entity has properly attached and loaded.
+    composeRoom(sceneEl);
   },
 });

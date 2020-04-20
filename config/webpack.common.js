@@ -130,4 +130,7 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".json"],
   },
+  externals: {
+    "isomorphic-fetch": "fetch",
+  },
 };

@@ -1,4 +1,5 @@
 import { WikiError, WikiParseResponse } from "./types";
+import wiki from "wikijs";
 
 export const WIKI_API_URL = "https://en.wikipedia.org/w/api.php";
 
@@ -14,10 +15,5 @@ export function searchByText(
 }
 
 export function getRandomPage() {
-  return fetch(`${WIKI_API_URL}?action=query&list=random&format=json&origin=*`, {
-    headers: {
-      Origin: window.location.origin,
-      "Content-Type": "application/json; charset=UTF-8",
-    },
-  });
+  return wiki().random();
 }
