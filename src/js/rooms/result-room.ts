@@ -139,7 +139,7 @@ export const placeImages = async (sceneEl: Element, wikiPage: Page) => {
       ""
     )};color: #000;align: left; width: 1.5;baseline: top;`,
     material: `color: white; visible: false;`,
-    position: `${-9 + 2 * index} 1 -10.01`,
+    position: `${-9.1 + 2 * index} 1 -10.01`,
     rotation: "0 180 0",
   }));
 
@@ -159,5 +159,4 @@ export const placeImages = async (sceneEl: Element, wikiPage: Page) => {
     sceneEl.appendChild(entityEl);
   });
 
-  console.warn(images);
 };
