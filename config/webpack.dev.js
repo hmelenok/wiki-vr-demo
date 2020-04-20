@@ -39,6 +39,6 @@ module.exports = merge(common, {
      *
      * Only update what has changed.
      */
-    new webpack.HotModuleReplacementPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
   ],
 })

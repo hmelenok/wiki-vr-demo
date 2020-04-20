@@ -55,8 +55,15 @@ export const createRandomDoor = (sceneEl: Element, store: Store) => {
   AFRAME.registerComponent("door-action", {
     init: async function () {
       this.el.addEventListener("click", () => {
+        const { randomWikiTitle } = store.getState();
+        store.dispatch({
+          type: "SET_WANTED_WIKI_TITLE",
+          wantedPageTitle: randomWikiTitle,
+        });
+
         moveToSecondRoom();
-        createResultRoom(sceneEl);
+
+        createResultRoom(sceneEl, store);
       });
       console.log(this.el, "door");
     },
