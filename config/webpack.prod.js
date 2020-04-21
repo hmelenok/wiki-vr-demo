@@ -10,7 +10,7 @@ module.exports = merge(common, {
   devtool: false,
   output: {
     path: paths.build,
-    publicPath: '/wiki-vr-demo/docs/',
+    publicPath: '/wiki-vr-demo/',
     filename: '[name].[contenthash].bundle.js',
   },
   plugins: [
