@@ -50,7 +50,6 @@ export const createKeyboard = (sceneEl: Element, store: Store) => {
         const { searchBarValue } = store.getState();
         const searchedTitle = await searchByTitle(searchBarValue);
 
-        console.warn({ searchBarValue, searchedTitle });
         store.dispatch({
           type: "SET_SEARCHED_WIKI_TITLE",
           searchedWikiTitle: searchedTitle,

@@ -100,7 +100,7 @@ export const placeSections = async (sceneEl: Element, wikiPage: Page) => {
       ""
     )};color: #000;align: left; width: 1.5;baseline: top;`,
     material: `color: white; visible: false;`,
-    position: `-9.94697 2 ${-12.3 - 2 * index + 0.5}`,
+    position: `-9.94697 2.3 ${-12.3 - 2 * index + 0.5}`,
     rotation: "0 90 0",
   }));
 
