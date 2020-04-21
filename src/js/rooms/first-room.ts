@@ -3,6 +3,7 @@ import { createWalls } from "../walls";
 import { moveToSecondRoom } from "../waypoints";
 import { createResultRoom } from "./result-room";
 import { Store } from "redux";
+import { createKeyboard } from "../keyboard-parts";
 export const createSky = (sceneEl: Element) => {
   if (!sceneEl) {
     return;
@@ -65,7 +66,6 @@ export const createRandomDoor = (sceneEl: Element, store: Store) => {
 
         createResultRoom(sceneEl, store);
       });
-      console.log(this.el, "door");
     },
   });
   const randomEntites: {
@@ -104,6 +104,76 @@ export const createRandomDoor = (sceneEl: Element, store: Store) => {
   });
 };
 
+export const createSearchDoor = (sceneEl: Element, store: Store) => {
+  AFRAME.registerComponent("search-door-action", {
+    init: async function () {
+      this.el.addEventListener("click", () => {
+        const { searchedWikiTitle } = store.getState();
+        if (searchedWikiTitle) {
+          store.dispatch({
+            type: "SET_WANTED_WIKI_TITLE",
+            wantedPageTitle: searchedWikiTitle,
+          });
+
+          moveToSecondRoom();
+
+          createResultRoom(sceneEl, store);
+        }
+      });
+    },
+  });
+
+  AFRAME.registerComponent("watch-searched-title", {
+    init: async function () {
+      store.subscribe(() => {
+        const { searchedWikiTitle } = store.getState();
+        if (searchedWikiTitle) {
+          this.el.setAttribute(
+            "text",
+            `value: ${searchedWikiTitle};color: #000;align: center`
+          );
+        }
+      });
+    },
+  });
+  const randomEntites: {
+    [key: string]: string;
+  }[] = [
+    {
+      id: "door2",
+      "search-door-action": "",
+      "gltf-model": "#door",
+      position: "1.335 0 -4.4",
+      scale: "0.01 0.01 0.01",
+    },
+    {
+      id: "searchText",
+      position: "3 3 -5",
+      geometry: "primitive: plane; width: auto; height: auto",
+      text: "value: Possible page;color: #000;width: 7;align: center;",
+      material: "visible: false",
+    },
+    {
+      id: "searchedPageTitle",
+      "watch-searched-title": "",
+      position: "3 2.55 -4.99",
+      geometry: "primitive: plane; width: 3; height: 0.4",
+      text: "value: ;color: #000;align: center",
+      material: "visible: true",
+    },
+  ];
+
+  randomEntites.forEach((entity) => {
+    const entityEl = document.createElement("a-entity");
+    Object.keys(entity).forEach((attr: string) => {
+      entityEl.setAttribute(attr, entity[attr]);
+    });
+    sceneEl.appendChild(entityEl);
+  });
+
+  createKeyboard(sceneEl, store);
+};
+
 export const createWikiSign = (sceneEl: Element) => {
   const wikiSignParts: {
     [key: string]: string;
@@ -113,14 +183,14 @@ export const createWikiSign = (sceneEl: Element) => {
       geometry: "primitive: plane; width: auto; height: auto",
       text: "value: Wikipedia;color: #000;width: 11;align: center;",
       material: "visible: false",
-      position: "0 2.75 -5",
+      position: "0 2.95 -5",
     },
     {
       id: "vrDemoSign",
       geometry: "primitive: plane; width: auto; height: auto",
       text: "value: (vr demo);color: #000;width: 5;align: center;",
       material: "visible: false",
-      position: "0 2.3 -5",
+      position: "0 2.5 -5",
     },
   ];
 
@@ -142,4 +212,5 @@ export const composeRoom = (sceneEl: Element | null, store: Store) => {
   createWalls(sceneEl, { wallLength: 10, idPrefix: "first" });
   createWikiSign(sceneEl);
   createRandomDoor(sceneEl, store);
+  createSearchDoor(sceneEl, store);
 };
